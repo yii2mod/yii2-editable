@@ -27,8 +27,8 @@ In your gridview columns section
 ```php
  [
     'class' => EditableColumn::className(),
-    'attribute' => 'status',
-    'url' => ['username'],
+    'attribute' => 'username',
+    'url' => ['change-username'],
  ],
 ```
 And add to your controller
