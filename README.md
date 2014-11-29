@@ -36,7 +36,7 @@ And add to your controller
  public function actions()
       {
           return [
-              'editable' => [
+              'change-username' => [
                   'class' => EditableAction::className(),
                   'modelClass' => UserModel::className(),
                   'forceCreate' => false
