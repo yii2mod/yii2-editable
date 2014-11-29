@@ -19,7 +19,7 @@ use yii2mod\editable\bundles\EditableDateTimePickerAsset;
 class EditableColumn extends DataColumn
 {
     /**
-     * Editablae options
+     * Editable options
      */
     public $editableOptions = [];
     /**
@@ -44,7 +44,6 @@ class EditableColumn extends DataColumn
         if ($this->url === null) {
             throw new InvalidConfigException("Url can not be empty.");
         }
-
         parent::init();
 
         if (!$this->format) {
@@ -114,7 +113,6 @@ class EditableColumn extends DataColumn
 
         $rel = $this->options['rel'];
         $selector = "a[rel=\"$rel\"]";
-        $grid = "#{$this->grid->id}";
         $js[] = ";jQuery('$selector').editable();";
         $view->registerJs(implode("\n", $js));
     }

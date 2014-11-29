@@ -9,7 +9,7 @@ use yii\web\BadRequestHttpException;
 
 /**
  * Class EditableAction
- * @package dosamigos\editable
+ * @package yii2mod\editable
  */
 class EditableAction extends Action
 {
@@ -38,7 +38,7 @@ class EditableAction extends Action
     public function init()
     {
         if ($this->modelClass === null) {
-            throw new InvalidConfigException("'modelClass' cannot be empty.");
+            throw new InvalidConfigException("ModelClass cannot be empty.");
         }
     }
 
