@@ -10,7 +10,7 @@ use yii\web\AssetBundle;
  */
 class EditableDateTimePickerAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/yii2mod/yii2-editable-column/assets/datetimepicker';
+    public $sourcePath = '@vendor/yii2mod/yii2-editable/assets/datetimepicker';
 
     public $depends = [
         'yii2mod\editable\bundles\EditableBootstrapAsset'
