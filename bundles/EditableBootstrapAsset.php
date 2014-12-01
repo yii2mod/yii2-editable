@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class EditableBootstrapAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/yii2mod/yii2-editable-column/assets/editable';
+    public $sourcePath = '@vendor/yii2mod/yii2-editable/assets/editable';
 
     public $css = [
         'css/bootstrap-editable.css'
