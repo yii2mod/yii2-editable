@@ -66,8 +66,13 @@ class EditableColumn extends DataColumn
      */
     protected function renderDataCellContent($model, $key, $index)
     {
-
         $value = parent::renderDataCellContent($model, $key, $index);
+        $url = (array)$this->url;
+        $this->options['data-url'] = Url::to($url);
+        $this->options['data-pk'] = $key;
+        $this->options['data-name'] = $this->attribute;
+        $this->options['data-type'] = $this->type;
+        
         if (is_callable($this->editableOptions)) {
             $opts = call_user_func($this->editableOptions, $model, $key, $index);
             foreach ($opts as $prop => $v) {
@@ -78,12 +83,6 @@ class EditableColumn extends DataColumn
                 $this->options['data-' . $prop] = $v;
             }
         }
-
-        $url = (array)$this->url;
-        $this->options['data-url'] = Url::to($url);
-        $this->options['data-pk'] = $key;
-        $this->options['data-name'] = $this->attribute;
-        $this->options['data-type'] = $this->type;
 
         return Html::a($value, null, $this->options);
     }
