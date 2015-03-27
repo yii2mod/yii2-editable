@@ -44,3 +44,24 @@ And add to your controller
           ];
       }
 ```
+Usage Editable widget
+======================================
+* As a widget with a model
+
+```php
+\yii2mod\editable\Editable::widget( [
+    'model' => $model,
+    'attribute' => 'firstName',
+    'url' => '/profile/update'
+]);
+```
+
+* With ActiveForm
+
+```php
+echo $form->field($model, "firstName")->widget(\yii2mod\editable\Editable::className(), [
+    'url' => '/profile/update',
+    'mode' => 'popup'
+]);
+
+```
