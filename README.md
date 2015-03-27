@@ -45,8 +45,9 @@ And add to your controller
       }
 ```
 Usage Editable widget
-======================================
-* As a widget with a model
+====================================== 
+
+As a widget with a model
 
 ```php
 \yii2mod\editable\Editable::widget( [
@@ -56,7 +57,7 @@ Usage Editable widget
 ]);
 ```
 
-* With ActiveForm
+With ActiveForm
 
 ```php
 echo $form->field($model, "firstName")->widget(\yii2mod\editable\Editable::className(), [
