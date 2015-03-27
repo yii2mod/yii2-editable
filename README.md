@@ -22,7 +22,7 @@ to the require section of your composer.json.
 
 
 Usage Editable column
-======================================
+---------------------------------------
 In your gridview columns section
 ```php
  [
@@ -45,7 +45,7 @@ And add to your controller
       }
 ```
 Usage Editable widget
-====================================== 
+---------------------------------
 
 As a widget with a model
 
