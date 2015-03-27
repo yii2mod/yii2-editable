@@ -21,7 +21,7 @@ or add
 to the require section of your composer.json.
 
 
-Usage
+Usage Editable column
 ======================================
 In your gridview columns section
 ```php
