@@ -3,7 +3,7 @@
     "description": "Yii2 editable field extension",
     "type": "yii2-extension",
     "keywords": ["yii2", "extension"],
-    "license": "Apache-2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Igor Chepurnoi",
