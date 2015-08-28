@@ -2,10 +2,10 @@
 
 namespace yii2mod\editable;
 
-use kartik\helpers\Html;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecordInterface;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\JsExpression;
