@@ -56,7 +56,7 @@ class EditableAction extends Action
         $class = $this->modelClass;
         $pk = Yii::$app->request->post('pk');
         $attribute = Yii::$app->request->post('name');
-        //For attributes with format - relationName.attributeName 
+        //For attributes with format - relationName.attributeName
         if (strpos($attribute, '.')) {
             $attributeParts = explode('.', $attribute);
             $attribute = array_pop($attributeParts);
@@ -69,7 +69,7 @@ class EditableAction extends Action
             throw new BadRequestHttpException("Value cannot be empty.");
         }
         /** @var \Yii\db\ActiveRecord $model */
-        $model = $class::findOne([$this->pkColumn => $pk]);
+        $model = $class::findOne(is_array($pk) ? $pk : [$this->pkColumn => $pk]);
         if (!$model) {
             if ($this->forceCreate) { // only useful for models with one editable attribute or no validations
                 $model = new $class;
@@ -93,4 +93,4 @@ class EditableAction extends Action
         }
     }
 
-} 
+}
