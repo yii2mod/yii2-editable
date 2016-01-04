@@ -87,7 +87,7 @@ class EditableAction extends Action
         $model->$attribute = $value;
 
         if ($model->validate([$attribute])) {
-            return $model->save(false);
+            return $model->save(true, [$attribute]);
         } else {
             throw new BadRequestHttpException($model->getFirstError($attribute));
         }
