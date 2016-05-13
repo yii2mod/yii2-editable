@@ -1,5 +1,9 @@
-Yii2 editable
+Yii2 Editable Widget
 =====================
+
+Renders a [X-Editable Input](http://vitalets.github.io/x-editable/index.html) allowing to use the amazing inline capabilities of [X-Editable Plugin](http://vitalets.github.io/x-editable/index.html). 
+
+[![Latest Stable Version](https://poser.pugx.org/yii2mod/yii2-editable/v/stable)](https://packagist.org/packages/yii2mod/yii2-editable) [![Total Downloads](https://poser.pugx.org/yii2mod/yii2-editable/downloads)](https://packagist.org/packages/yii2mod/yii2-editable) [![License](https://poser.pugx.org/yii2mod/yii2-editable/license)](https://packagist.org/packages/yii2mod/yii2-editable)
 
 Installation
 ------------
