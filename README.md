@@ -27,7 +27,7 @@ to the require section of your composer.json.
 
 Usage Editable column
 ---------------------------------------
-In your gridview columns section
+1) In your gridview columns section
 ```php
  [
     'class' => EditableColumn::className(),
@@ -35,7 +35,7 @@ In your gridview columns section
     'url' => ['change-username'],
  ],
 ```
-And add to your controller
+2) And add to your controller
 ```php
  public function actions()
       {
@@ -51,7 +51,7 @@ And add to your controller
 Usage Editable widget
 ---------------------------------
 
-As a widget with a model
+1) As a widget with a model
 
 ```php
 \yii2mod\editable\Editable::widget( [
@@ -61,7 +61,7 @@ As a widget with a model
 ]);
 ```
 
-With ActiveForm
+2) With ActiveForm
 
 ```php
 echo $form->field($model, "firstName")->widget(\yii2mod\editable\Editable::className(), [
