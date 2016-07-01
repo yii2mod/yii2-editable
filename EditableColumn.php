@@ -22,14 +22,17 @@ class EditableColumn extends DataColumn
      * Editable options
      */
     public $editableOptions = [];
+    
     /**
      * @var string suffix substituted to a name class of the tag <a>
      */
     public $classSuffix;
+    
     /**
      * @var string the url to post
      */
     public $url;
+    
     /**
      * @var string the type of editor
      */
@@ -59,6 +62,7 @@ class EditableColumn extends DataColumn
 
     /**
      * Renders the data cell content.
+     * 
      * @param mixed $model the data model
      * @param mixed $key the key associated with the data model
      * @param integer $index the zero-based index of the data model among the models array returned by [[GridView::dataProvider]].

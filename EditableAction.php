@@ -17,19 +17,23 @@ class EditableAction extends Action
      * @var string the class name to handle
      */
     public $modelClass;
+
     /**
      * @var string the scenario to be used (optional)
      */
     public $scenario;
+
     /**
      * @var \Closure a function to be called previous saving model. The anonymous function is preferable to have the
      * model passed by reference. This is useful when we need to set model with extra data previous update.
      */
     public $preProcess;
+
     /**
      * @var bool whether to create a model if a primary key parameter was not found.
      */
     public $forceCreate = true;
+
     /**
      * @var string default pk column name
      */
@@ -48,6 +52,7 @@ class EditableAction extends Action
 
     /**
      * Runs the action
+     * 
      * @return bool
      * @throws BadRequestHttpException
      */
@@ -62,12 +67,15 @@ class EditableAction extends Action
             $attribute = array_pop($attributeParts);
         }
         $value = Yii::$app->request->post('value');
+
         if ($attribute === null) {
             throw new BadRequestHttpException("Attribute cannot be empty.");
         }
+
         if ($value === null) {
             throw new BadRequestHttpException("Value cannot be empty.");
         }
+
         /** @var \Yii\db\ActiveRecord $model */
         $model = $class::findOne(is_array($pk) ? $pk : [$this->pkColumn => $pk]);
         if (!$model) {
@@ -77,13 +85,16 @@ class EditableAction extends Action
                 throw new BadRequestHttpException('Entity not found by primary key ' . $pk);
             }
         }
+
         // do we have a preProcess function
         if ($this->preProcess && is_callable($this->preProcess, true)) {
             call_user_func($this->preProcess, $model);
         }
+
         if ($this->scenario !== null) {
             $model->setScenario($this->scenario);
         }
+
         $model->$attribute = $value;
 
         if ($model->validate([$attribute])) {
@@ -93,5 +104,4 @@ class EditableAction extends Action
             throw new BadRequestHttpException($model->getFirstError($attribute));
         }
     }
-
 }

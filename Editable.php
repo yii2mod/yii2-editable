@@ -56,6 +56,7 @@ class Editable extends InputWidget
         if ($this->url === null) {
             throw new InvalidConfigException("You must setup the 'Url' property.");
         }
+        
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
         }
@@ -111,6 +112,7 @@ class Editable extends InputWidget
 
     /**
      * Return plugin options in json format
+     * 
      * @return string
      */
     public function getPluginOptions()
@@ -130,6 +132,7 @@ class Editable extends InputWidget
 
     /**
      * Register client events
+     * 
      * @param $id
      */
     public function registerClientEvents($id)
@@ -144,6 +147,7 @@ class Editable extends InputWidget
 
     /**
      * Return link text
+     * 
      * @return mixed|string
      */
     protected function getLinkText()
@@ -169,6 +173,7 @@ class Editable extends InputWidget
 
     /**
      * To ensure that `getPrimaryKey()` and `getIsNewRecord()` methods are implemented in model.
+     * 
      * @return bool
      */
     protected function hasActiveRecord()
