@@ -28,6 +28,8 @@ to the require section of your composer.json.
 Usage Editable column
 ---------------------------------------
 1) In your gridview columns section
+
+**Text column:**
 ```php
  [
     'class' => EditableColumn::className(),
@@ -35,6 +37,23 @@ Usage Editable column
     'url' => ['change-username'],
  ],
 ```
+**Select column:**
+```php
+[
+    'class' => EditableColumn::className(),
+    'attribute' => 'status',
+    'url' => ['change-username'],
+    'type' => 'select',
+    'editableOptions' => function ($model) {
+        return [
+            'source' => [1 => 'Active', 2 => 'Deleted'],
+            'value' => $model->status,
+        ];
+    },
+],
+```
+> Allowed column types: text, select, address, combodate, date, datetime
+
 2) And add to your controller
 ```php
  public function actions()
