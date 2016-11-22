@@ -6,6 +6,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class EditableBootstrapAsset
+ *
  * @package yii2mod\editable\bundles
  */
 class EditableBootstrapAsset extends AssetBundle
@@ -19,7 +20,7 @@ class EditableBootstrapAsset extends AssetBundle
      * @var array
      */
     public $css = [
-        'css/bootstrap-editable.css'
+        'css/bootstrap-editable.css',
     ];
 
     /**

@@ -14,6 +14,7 @@ use yii2mod\editable\bundles\EditableDateTimePickerAsset;
 
 /**
  * Class EditableColumn
+ *
  * @package yii2mod\editable
  */
 class EditableColumn extends DataColumn
@@ -22,17 +23,17 @@ class EditableColumn extends DataColumn
      * Editable options
      */
     public $editableOptions = [];
-    
+
     /**
      * @var string suffix substituted to a name class of the tag <a>
      */
     public $classSuffix;
-    
+
     /**
      * @var string the url to post
      */
     public $url;
-    
+
     /**
      * @var string the type of editor
      */
@@ -40,12 +41,13 @@ class EditableColumn extends DataColumn
 
     /**
      * @inheritdoc
+     *
      * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         if ($this->url === null) {
-            throw new InvalidConfigException("Url can not be empty.");
+            throw new InvalidConfigException('Url can not be empty.');
         }
         parent::init();
 
@@ -62,10 +64,11 @@ class EditableColumn extends DataColumn
 
     /**
      * Renders the data cell content.
-     * 
+     *
      * @param mixed $model the data model
      * @param mixed $key the key associated with the data model
-     * @param integer $index the zero-based index of the data model among the models array returned by [[GridView::dataProvider]].
+     * @param int $index the zero-based index of the data model among the models array returned by [[GridView::dataProvider]]
+     *
      * @return string the rendering result
      */
     protected function renderDataCellContent($model, $key, $index)
@@ -76,7 +79,7 @@ class EditableColumn extends DataColumn
         $this->options['data-pk'] = $key;
         $this->options['data-name'] = $this->attribute;
         $this->options['data-type'] = $this->type;
-        
+
         if (is_callable($this->editableOptions)) {
             $opts = call_user_func($this->editableOptions, $model, $key, $index);
             foreach ($opts as $prop => $v) {
@@ -119,4 +122,4 @@ class EditableColumn extends DataColumn
         $js[] = ";jQuery('$selector').editable();";
         $view->registerJs(implode("\n", $js));
     }
-} 
+}

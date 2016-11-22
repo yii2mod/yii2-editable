@@ -9,6 +9,7 @@ use yii\web\BadRequestHttpException;
 
 /**
  * Class EditableAction
+ *
  * @package yii2mod\editable
  */
 class EditableAction extends Action
@@ -25,12 +26,12 @@ class EditableAction extends Action
 
     /**
      * @var \Closure a function to be called previous saving model. The anonymous function is preferable to have the
-     * model passed by reference. This is useful when we need to set model with extra data previous update.
+     * model passed by reference. This is useful when we need to set model with extra data previous update
      */
     public $preProcess;
 
     /**
-     * @var bool whether to create a model if a primary key parameter was not found.
+     * @var bool whether to create a model if a primary key parameter was not found
      */
     public $forceCreate = true;
 
@@ -41,19 +42,21 @@ class EditableAction extends Action
 
     /**
      * @inheritdoc
+     *
      * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         if ($this->modelClass === null) {
-            throw new InvalidConfigException("ModelClass cannot be empty.");
+            throw new InvalidConfigException('ModelClass cannot be empty.');
         }
     }
 
     /**
      * Runs the action
-     * 
+     *
      * @return bool
+     *
      * @throws BadRequestHttpException
      */
     public function run()
@@ -69,18 +72,18 @@ class EditableAction extends Action
         $value = Yii::$app->request->post('value');
 
         if ($attribute === null) {
-            throw new BadRequestHttpException("Attribute cannot be empty.");
+            throw new BadRequestHttpException('Attribute cannot be empty.');
         }
 
         if ($value === null) {
-            throw new BadRequestHttpException("Value cannot be empty.");
+            throw new BadRequestHttpException('Value cannot be empty.');
         }
 
         /** @var \Yii\db\ActiveRecord $model */
         $model = $class::findOne(is_array($pk) ? $pk : [$this->pkColumn => $pk]);
         if (!$model) {
             if ($this->forceCreate) { // only useful for models with one editable attribute or no validations
-                $model = new $class;
+                $model = new $class();
             } else {
                 throw new BadRequestHttpException('Entity not found by primary key ' . $pk);
             }

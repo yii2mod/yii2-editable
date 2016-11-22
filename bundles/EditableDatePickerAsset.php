@@ -6,6 +6,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class EditableDatePickerAsset
+ *
  * @package yii2mod\editable\bundles
  */
 class EditableDatePickerAsset extends AssetBundle
@@ -19,7 +20,7 @@ class EditableDatePickerAsset extends AssetBundle
      * @var array
      */
     public $css = [
-        'vendor/css/datepicker3.css'
+        'vendor/css/datepicker3.css',
     ];
 
     /**
@@ -27,14 +28,13 @@ class EditableDatePickerAsset extends AssetBundle
      */
     public $js = [
         'vendor/js/bootstrap-datepicker.js',
-        'bootstrap-editable-datepicker.js'
+        'bootstrap-editable-datepicker.js',
     ];
 
     /**
      * @var array
      */
     public $depends = [
-        'yii2mod\editable\bundles\EditableBootstrapAsset'
+        'yii2mod\editable\bundles\EditableBootstrapAsset',
     ];
-
 }

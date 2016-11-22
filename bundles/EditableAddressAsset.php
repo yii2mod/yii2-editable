@@ -6,6 +6,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class EditableAddressAsset
+ *
  * @package yii2mod\editable\bundles
  */
 class EditableAddressAsset extends AssetBundle
@@ -19,21 +20,20 @@ class EditableAddressAsset extends AssetBundle
      * @var array
      */
     public $css = [
-        'bootstrap-editable-address.css'
+        'bootstrap-editable-address.css',
     ];
 
     /**
      * @var array
      */
     public $js = [
-        'bootstrap-editable-address.js'
+        'bootstrap-editable-address.js',
     ];
 
     /**
      * @var array
      */
     public $depends = [
-        'yii2mod\editable\bundles\EditableBootstrapAsset'
+        'yii2mod\editable\bundles\EditableBootstrapAsset',
     ];
-
-} 
+}

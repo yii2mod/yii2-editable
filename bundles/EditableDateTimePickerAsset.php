@@ -6,6 +6,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class EditableDateTimePickerAsset
+ *
  * @package yii2mod\editable\bundles
  */
 class EditableDateTimePickerAsset extends AssetBundle
@@ -19,7 +20,7 @@ class EditableDateTimePickerAsset extends AssetBundle
      * @var array
      */
     public $depends = [
-        'yii2mod\editable\bundles\EditableBootstrapAsset'
+        'yii2mod\editable\bundles\EditableBootstrapAsset',
     ];
 
     /**
@@ -32,5 +33,4 @@ class EditableDateTimePickerAsset extends AssetBundle
         $this->js[] = 'bootstrap-editable-datetimepicker.js';
         parent::init();
     }
-
 }

@@ -18,35 +18,35 @@ use yii2mod\editable\bundles\EditableDateTimePickerAsset;
 
 /**
  * Class Editable
+ *
  * @package yii2mod\editable
  */
 class Editable extends InputWidget
 {
     /**
-     * @var string the type of input. Type of input.
+     * @var string the type of input. Type of input
      */
     public $type = 'text';
 
     /**
-     * @var string the Mode of editable, can be popup or inline.
+     * @var string the Mode of editable, can be popup or inline
      */
     public $mode = 'inline';
 
     /**
-     * @var string|array Url for submit, e.g. '/post'.
+     * @var string|array Url for submit, e.g. '/post'
      */
     public $url;
 
     /**
-     * @var array the options for the X-editable.js plugin.
+     * @var array the options for the X-editable.js plugin
      */
     public $pluginOptions = [];
 
     /**
-     * @var array the event handlers for the X-editable.js plugin.
+     * @var array the event handlers for the X-editable.js plugin
      */
     public $clientEvents = [];
-
 
     /**
      * Initializes the widget.
@@ -56,7 +56,7 @@ class Editable extends InputWidget
         if ($this->url === null) {
             throw new InvalidConfigException("You must setup the 'Url' property.");
         }
-        
+
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
         }
@@ -112,7 +112,7 @@ class Editable extends InputWidget
 
     /**
      * Return plugin options in json format
-     * 
+     *
      * @return string
      */
     public function getPluginOptions()
@@ -132,7 +132,7 @@ class Editable extends InputWidget
 
     /**
      * Register client events
-     * 
+     *
      * @param $id
      */
     public function registerClientEvents($id)
@@ -147,7 +147,7 @@ class Editable extends InputWidget
 
     /**
      * Return link text
-     * 
+     *
      * @return mixed|string
      */
     protected function getLinkText()
@@ -173,7 +173,7 @@ class Editable extends InputWidget
 
     /**
      * To ensure that `getPrimaryKey()` and `getIsNewRecord()` methods are implemented in model.
-     * 
+     *
      * @return bool
      */
     protected function hasActiveRecord()
