@@ -53,6 +53,8 @@ class Editable extends InputWidget
      */
     public function init()
     {
+        parent::init();
+
         if ($this->url === null) {
             throw new InvalidConfigException("You must setup the 'Url' property.");
         }
@@ -60,8 +62,6 @@ class Editable extends InputWidget
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
         }
-
-        parent::init();
     }
 
     /**
@@ -117,7 +117,8 @@ class Editable extends InputWidget
      */
     public function getPluginOptions()
     {
-        $pk = ArrayHelper::getValue($this->pluginOptions,
+        $pk = ArrayHelper::getValue(
+            $this->pluginOptions,
             'pk',
             $this->hasActiveRecord() ? $this->model->getPrimaryKey() : null
         );
