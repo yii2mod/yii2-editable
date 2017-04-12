@@ -34,6 +34,11 @@ class Editable extends InputWidget
     public $mode = 'inline';
 
     /**
+     * @var string placement of bootstrap popover
+     */
+    public $placement = 'top';
+
+    /**
      * @var string|array Url for submit, e.g. '/post'
      */
     public $url;
@@ -69,9 +74,9 @@ class Editable extends InputWidget
      */
     public function run()
     {
-        $linkText = $this->getLinkText();
-        echo Html::a($linkText, null, $this->options);
         $this->registerClientScript();
+
+        return Html::a($this->getLinkText(), null, $this->options);
     }
 
     /**
@@ -99,9 +104,6 @@ class Editable extends InputWidget
         $id = ArrayHelper::remove($this->pluginOptions, 'selector', '#' . $this->options['id']);
         $id = preg_replace('/([.])/', '\\\\\\\$1', $id);
 
-        if ($this->hasActiveRecord() && $this->model->isNewRecord) {
-            $this->pluginOptions['send'] = 'always'; // send to server without pk
-        }
         $pluginOptions = $this->getPluginOptions();
         $js = "jQuery('$id').editable($pluginOptions);";
         $view->registerJs($js);
@@ -122,11 +124,16 @@ class Editable extends InputWidget
             'pk',
             $this->hasActiveRecord() ? $this->model->getPrimaryKey() : null
         );
-        $this->pluginOptions['pk'] = $pk;
+        $this->pluginOptions['pk'] = base64_encode(serialize($pk));
         $this->pluginOptions['url'] = $this->url instanceof JsExpression ? $this->url : Url::toRoute($this->url);
         $this->pluginOptions['type'] = $this->type;
         $this->pluginOptions['mode'] = $this->mode;
         $this->pluginOptions['name'] = $this->attribute ?: $this->name;
+        $this->pluginOptions['placement'] = $this->placement;
+
+        if ($this->hasActiveRecord() && $this->model->isNewRecord) {
+            $this->pluginOptions['send'] = 'always';
+        }
 
         return Json::encode($this->pluginOptions);
     }

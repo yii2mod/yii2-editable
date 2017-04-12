@@ -5,6 +5,7 @@ namespace yii2mod\editable;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
+use yii\base\Model;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -22,7 +23,7 @@ class EditableAction extends Action
     /**
      * @var string the scenario to be used (optional)
      */
-    public $scenario;
+    public $scenario = Model::SCENARIO_DEFAULT;
 
     /**
      * @var \Closure a function to be called previous saving model. The anonymous function is preferable to have the
@@ -33,7 +34,7 @@ class EditableAction extends Action
     /**
      * @var bool whether to create a model if a primary key parameter was not found
      */
-    public $forceCreate = true;
+    public $forceCreate = false;
 
     /**
      * @var string default pk column name
@@ -42,13 +43,11 @@ class EditableAction extends Action
 
     /**
      * @inheritdoc
-     *
-     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         if ($this->modelClass === null) {
-            throw new InvalidConfigException('ModelClass cannot be empty.');
+            throw new InvalidConfigException('The "modelClass" property must be set.');
         }
     }
 
@@ -61,50 +60,63 @@ class EditableAction extends Action
      */
     public function run()
     {
-        $class = $this->modelClass;
-        $pk = Yii::$app->request->post('pk');
+        $model = $this->findModelOrCreate();
+        $attribute = $this->getModelAttribute();
+
+        if ($this->preProcess && is_callable($this->preProcess, true)) {
+            call_user_func($this->preProcess, $model);
+        }
+
+        $model->setScenario($this->scenario);
+        $model->$attribute = Yii::$app->request->post('value');
+
+        if ($model->validate([$attribute])) {
+            return $model->save(false);
+        } else {
+            throw new BadRequestHttpException($model->getFirstError($attribute));
+        }
+    }
+
+    /**
+     * @return array|mixed
+     *
+     * @throws BadRequestHttpException
+     */
+    private function getModelAttribute()
+    {
         $attribute = Yii::$app->request->post('name');
-        //For attributes with format - relationName.attributeName
+
         if (strpos($attribute, '.')) {
             $attributeParts = explode('.', $attribute);
             $attribute = array_pop($attributeParts);
         }
-        $value = Yii::$app->request->post('value');
 
         if ($attribute === null) {
             throw new BadRequestHttpException('Attribute cannot be empty.');
         }
 
-        if ($value === null) {
-            throw new BadRequestHttpException('Value cannot be empty.');
-        }
+        return $attribute;
+    }
 
-        /** @var \Yii\db\ActiveRecord $model */
+    /**
+     * @return yii\db\ActiveRecord
+     *
+     * @throws BadRequestHttpException
+     */
+    private function findModelOrCreate()
+    {
+        $pk = unserialize(base64_decode(Yii::$app->request->post('pk')));
+        $class = $this->modelClass;
         $model = $class::findOne(is_array($pk) ? $pk : [$this->pkColumn => $pk]);
+
         if (!$model) {
-            if ($this->forceCreate) { // only useful for models with one editable attribute or no validations
+            if ($this->forceCreate) {
                 $model = new $class();
             } else {
                 throw new BadRequestHttpException('Entity not found by primary key ' . $pk);
             }
         }
 
-        // do we have a preProcess function
-        if ($this->preProcess && is_callable($this->preProcess, true)) {
-            call_user_func($this->preProcess, $model);
-        }
-
-        if ($this->scenario !== null) {
-            $model->setScenario($this->scenario);
-        }
-
-        $model->$attribute = $value;
-
-        if ($model->validate([$attribute])) {
-            // no need to specify which attributes as Yii2 handles that via [[BaseActiveRecord::getDirtyAttributes]]
-            return $model->save(false);
-        } else {
-            throw new BadRequestHttpException($model->getFirstError($attribute));
-        }
+        return $model;
     }
 }

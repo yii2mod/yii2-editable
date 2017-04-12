@@ -40,19 +40,19 @@ class EditableColumn extends DataColumn
     public $type = 'text';
 
     /**
+     * @var string
+     */
+    public $format = 'raw';
+
+    /**
      * @inheritdoc
-     *
-     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
-        if ($this->url === null) {
-            throw new InvalidConfigException('Url can not be empty.');
-        }
         parent::init();
 
-        if (!$this->format) {
-            $this->format = 'raw';
+        if ($this->url === null) {
+            throw new InvalidConfigException('The "url" property must be set.');
         }
 
         $rel = $this->attribute . '_editable' . $this->classSuffix;
@@ -76,7 +76,7 @@ class EditableColumn extends DataColumn
         $value = parent::renderDataCellContent($model, $key, $index);
         $url = (array)$this->url;
         $this->options['data-url'] = Url::to($url);
-        $this->options['data-pk'] = $key;
+        $this->options['data-pk'] = base64_encode(serialize($key));
         $this->options['data-name'] = $this->attribute;
         $this->options['data-type'] = $this->type;
 
