@@ -5,6 +5,7 @@ namespace yii2mod\editable;
 use yii\base\InvalidConfigException;
 use yii\grid\DataColumn;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use yii2mod\editable\bundles\EditableAddressAsset;
 use yii2mod\editable\bundles\EditableBootstrapAsset;
@@ -45,6 +46,11 @@ class EditableColumn extends DataColumn
     public $format = 'raw';
 
     /**
+     * @var array
+     */
+    public $clientOptions = [];
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -74,7 +80,7 @@ class EditableColumn extends DataColumn
     protected function renderDataCellContent($model, $key, $index)
     {
         $value = parent::renderDataCellContent($model, $key, $index);
-        $url = (array)$this->url;
+        $url = (array) $this->url;
         $this->options['data-url'] = Url::to($url);
         $this->options['data-pk'] = base64_encode(serialize($key));
         $this->options['data-name'] = $this->attribute;
@@ -119,7 +125,17 @@ class EditableColumn extends DataColumn
 
         $rel = $this->options['rel'];
         $selector = "a[rel=\"$rel\"]";
-        $js[] = ";jQuery('$selector').editable();";
+        $js[] = ";jQuery('$selector').editable({$this->getClientOptions()});";
         $view->registerJs(implode("\n", $js));
+    }
+
+    /**
+     * Return client options in json format
+     *
+     * @return string
+     */
+    public function getClientOptions()
+    {
+        return Json::encode($this->clientOptions);
     }
 }
