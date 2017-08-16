@@ -53,6 +53,16 @@ class Editable extends InputWidget
      */
     public $clientEvents = [];
 
+    public function actions()
+    {
+        return [
+            'change-username' => [
+                'class' => EditableAction::class,
+                'modelClass' => UserModel::class,
+            ],
+        ];
+    }
+
     /**
      * Initializes the widget.
      */

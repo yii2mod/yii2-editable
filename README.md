@@ -62,15 +62,15 @@ Usage Editable column
 
 2) And add to your controller
 ```php
- public function actions()
-      {
-          return [
-              'change-username' => [
-                  'class' => EditableAction::class,
-                  'modelClass' => UserModel::class,
-              ],
-          ];
-      }
+public function actions()
+{
+    return [
+        'change-username' => [
+            'class' => EditableAction::class,
+            'modelClass' => UserModel::class,
+        ],
+    ];
+}
 ```
 Usage Editable widget
 ---------------------------------
@@ -78,19 +78,18 @@ Usage Editable widget
 1) As a widget with a model
 
 ```php
-\yii2mod\editable\Editable::widget( [
+\yii2mod\editable\Editable::widget([
     'model' => $model,
     'attribute' => 'firstName',
-    'url' => '/profile/update'
+    'url' => '/profile/update',
 ]);
 ```
 
 2) With ActiveForm
 
 ```php
-echo $form->field($model, "firstName")->widget(\yii2mod\editable\Editable::className(), [
+echo $form->field($model, "firstName")->widget(\yii2mod\editable\Editable::class, [
     'url' => '/profile/update',
-    'mode' => 'popup'
+    'mode' => 'popup',
 ]);
-
 ```
