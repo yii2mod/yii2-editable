@@ -62,13 +62,14 @@ class EditableAction extends Action
     {
         $model = $this->findModelOrCreate();
         $attribute = $this->getModelAttribute();
+        $value = Yii::$app->request->post('value');
 
         if ($this->preProcess && is_callable($this->preProcess, true)) {
             call_user_func($this->preProcess, $model);
         }
 
         $model->setScenario($this->scenario);
-        $model->$attribute = Yii::$app->request->post('value');
+        $model->$attribute = $value;
 
         if ($model->validate([$attribute])) {
             return $model->save(false);
@@ -86,13 +87,14 @@ class EditableAction extends Action
     {
         $attribute = Yii::$app->request->post('name');
 
-        if (strpos($attribute, '.')) {
-            $attributeParts = explode('.', $attribute);
-            $attribute = array_pop($attributeParts);
-        }
-
         if ($attribute === null) {
             throw new BadRequestHttpException('Attribute cannot be empty.');
+        }
+
+        if (strpos($attribute, '.')) {
+            $attributePath = explode('.', $attribute);
+
+            return array_pop($attributePath);
         }
 
         return $attribute;
@@ -115,6 +117,20 @@ class EditableAction extends Action
             } else {
                 throw new BadRequestHttpException('Entity not found by primary key ' . $pk);
             }
+        }
+
+        $attribute = Yii::$app->request->post('name');
+
+        if (strpos($attribute, '.')) {
+            $attributePath = explode('.', $attribute);
+
+            $related = $model[array_shift($attributePath)];
+
+            while ((count($attributePath) > 1)) {
+                $related = $model[array_shift($attributePath)];
+            }
+
+            return $related;
         }
 
         return $model;
