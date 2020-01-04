@@ -14,7 +14,7 @@ class EditableBootstrapAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@bower/x-editable/dist/bootstrap3-editable';
+    public $sourcePath = '@bower/x-editable/dist/bootstrap-editable';
 
     /**
      * @var array
@@ -28,7 +28,7 @@ class EditableBootstrapAsset extends AssetBundle
      */
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
+        'yii\bootstrap4\BootstrapPluginAsset',
     ];
 
     /**
@@ -36,6 +36,6 @@ class EditableBootstrapAsset extends AssetBundle
      */
     public function init()
     {
-        $this->js[] = YII_DEBUG ? 'js/bootstrap-editable.js' : 'js/bootstrap-editable.min.js';
+        $this->js[] = '/js/main/editable.min.js';
     }
 }
